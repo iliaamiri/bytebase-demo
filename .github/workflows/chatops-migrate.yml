@@ -28,7 +28,7 @@ jobs:
           test:
             stage: environments/test
             targets:
-              - instances/test-sample-instance/databases/hr_test
+              - instances/clickhouse-local/databases/analytics
           prod:
             stage: environments/prod
             targets:
