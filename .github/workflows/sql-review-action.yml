@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - ${{ env.FILE_PATTERN }}
+      - "migrations-semver/*.sql"
 
 jobs:
   check-release-on-prod:
