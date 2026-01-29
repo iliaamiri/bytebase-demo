@@ -88,7 +88,7 @@ jobs:
       - deploy-to-test
       - create-rollout
     runs-on: ubuntu-latest
-    environment: prod
+    environment: stage
     container:
       image: docker://bytebase/bytebase-action:latest
     steps:
