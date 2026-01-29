@@ -62,7 +62,6 @@ jobs:
       BYTEBASE_PROJECT: ${{ vars.BYTEBASE_PROJECT }}
     needs: create-rollout
     runs-on: ubuntu-latest # use self-hosted machines if your Bytebase runs in internal networks.
-    environment: test
     container:
       image: docker://bytebase/bytebase-action:latest
     steps:
@@ -78,7 +77,6 @@ jobs:
           echo "Deploying app to test environment..."
           echo "Deploy app to test environment done!"
   deploy-to-prod:
-    environment: stage
     env:
       BYTEBASE_URL: ${{ vars.BYTEBASE_URL }}
       BYTEBASE_SERVICE_ACCOUNT: ${{ vars.BYTEBASE_SERVICE_ACCOUNT }} # set service account via environment variable
