@@ -4,9 +4,6 @@ on:
   issue_comment:
     types: [created]
 
-env:
-  BYTEBASE_SERVICE_ACCOUNT_SECRET: ${{ secrets.BYTEBASE_SERVICE_ACCOUNT_SECRET }} # set service account secret via environment variable
-
 jobs:
   parse-command:
     if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/migrate')
@@ -16,6 +13,13 @@ jobs:
       valid-command: ${{ steps.parse.outputs.valid-command }}
       stage: ${{ steps.parse.outputs.stage }}
       targets: ${{ steps.parse.outputs.targets }}
+    environment: stage
+    env:
+      BYTEBASE_URL: ${{ vars.BYTEBASE_URL}}
+      BYTEBASE_SERVICE_ACCOUNT: ${{ vars.BYTEBASE_SERVICE_ACCOUNT }} # set service account via environment variable
+      BYTEBASE_SERVICE_ACCOUNT_SECRET: ${{ secrets.BYTEBASE_SERVICE_ACCOUNT_SECRET }} # set service account secret via environment variable
+      BYTEBASE_PROJECT: ${{ vars.BYTEBASE_PROJECT }}
+      FILE_PATTERN: ${{ vars.FILE_PATTERN }}
     steps:
       - name: Write command config
         # write a bytebase-action-config.yaml file to runner temp directory
@@ -99,6 +103,13 @@ jobs:
     environment: ${{ needs.parse-command.outputs.environment }}
     container:
       image: bytebase/bytebase-action:latest
+    environment: stage
+    env:
+      BYTEBASE_URL: ${{ vars.BYTEBASE_URL}}
+      BYTEBASE_SERVICE_ACCOUNT: ${{ vars.BYTEBASE_SERVICE_ACCOUNT }} # set service account via environment variable
+      BYTEBASE_SERVICE_ACCOUNT_SECRET: ${{ secrets.BYTEBASE_SERVICE_ACCOUNT_SECRET }} # set service account secret via environment variable
+      BYTEBASE_PROJECT: ${{ vars.BYTEBASE_PROJECT }}
+      FILE_PATTERN: ${{ vars.FILE_PATTERN }}
     steps:
       - name: Checkout PR merge commit
         uses: actions/checkout@v4

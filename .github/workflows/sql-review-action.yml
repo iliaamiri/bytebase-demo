@@ -9,6 +9,7 @@ on:
 
 jobs:
   check-release-on-prod:
+    environment: stage
     permissions:
         pull-requests: write # write permission required to allow the action writes the check results to the comment.
     runs-on: ubuntu-latest # use self-hosted machines if your Bytebase runs in internal networks.
