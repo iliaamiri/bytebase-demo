@@ -103,7 +103,6 @@ jobs:
     environment: ${{ needs.parse-command.outputs.environment }}
     container:
       image: bytebase/bytebase-action:latest
-    environment: stage
     env:
       BYTEBASE_URL: ${{ vars.BYTEBASE_URL}}
       BYTEBASE_SERVICE_ACCOUNT: ${{ vars.BYTEBASE_SERVICE_ACCOUNT }} # set service account via environment variable
